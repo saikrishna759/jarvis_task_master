@@ -1,0 +1,10 @@
+fastapi
+uvicorn
+httpx
+python-dotenv
+twilio
+openai
+spotipy
+google-api-python-client
+google-auth
+requests
