@@ -1,0 +1,77 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap');
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: 
+    linear-gradient(rgba(1, 10, 19, 0.6), rgba(1, 10, 19, 0.6)),
+    url("images/jarvis-bg.jpg") no-repeat center center fixed;
+  background-size: cover;
+  background-blend-mode: multiply;
+  color: #00e5ff;
+  font-family: 'Orbitron', sans-serif;
+  overflow-x: hidden;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 2rem;
+}
+
+h1 {
+  font-size: 3rem;
+  margin-bottom: 1.5rem;
+  text-shadow: 0 0 12px #0ff;
+}
+
+.jarvis-panel {
+  background: rgba(0, 229, 255, 0.08);
+  border: 1px solid #00e5ff;
+  border-radius: 8px;
+  padding: 1rem;
+  margin: 1rem 0;
+  width: 80%;
+  max-width: 600px;
+  box-shadow: 0 0 20px #00e5ff;
+  transition: transform 0.3s;
+}
+
+.jarvis-panel:hover {
+  transform: scale(1.02);
+}
+
+button {
+  background: transparent;
+  color: #00e5ff;
+  border: 2px solid #00e5ff;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: 'Orbitron', sans-serif;
+  text-transform: uppercase;
+  margin-top: 0.5rem;
+  transition: box-shadow 0.3s, transform 0.3s;
+}
+
+button:hover {
+  box-shadow: 0 0 10px #00e5ff;
+  transform: scale(1.05);
+}
+
+input {
+  background: transparent;
+  border: 1px solid #00e5ff;
+  color: #00e5ff;
+  padding: 0.5rem;
+  font-family: 'Orbitron', sans-serif;
+  border-radius: 5px;
+  outline: none;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
