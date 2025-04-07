@@ -1,7 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.routes import gpt4, email, calendar, music, websearch, whatsapp, searchreservation,video
-
+from app.routes import gpt4, email, calendar, music, websearch, whatsapp, searchreservation,video, expense
 app = FastAPI(title="Jarvis Task Manager API")
 
 # Enable CORS for your frontend
@@ -21,6 +20,7 @@ app.include_router(video.router, prefix="/api/video")
 app.include_router(websearch.router, prefix="/api/websearch")
 app.include_router(whatsapp.router, prefix="/api/whatsapp")
 app.include_router(searchreservation.router, prefix="/api/searchreservation")
+app.include_router(expense.router, prefix="/api/plaid", tags=["Plaid"])
 
 if __name__ == "__main__":
     import uvicorn
