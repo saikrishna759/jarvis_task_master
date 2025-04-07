@@ -206,7 +206,7 @@ FUNCTIONS = [
     },
 ]
 
-async def generate_interpretation(command: str):
+async def generate_interpretation(command: str, context: dict = None):
     try:
         messages = []
 
@@ -235,7 +235,7 @@ async def generate_interpretation(command: str):
             model=MODEL,
             messages=messages,
             functions=FUNCTIONS,
-            function_call="auto",
+            function_call="auto"
         )
         message = response["choices"][0]["message"]
         print("GPT Response:", message)
@@ -254,13 +254,11 @@ async def generate_interpretation(command: str):
             arguments['session_id']= session_id
             return {"task": function_name, "arguments": arguments}
         else:
-            return {
-                "task": "none",
-                "arguments": {"response": message.get("content", "")},
-            }
+            return {"task": "none", "arguments": {"response": message.get("content", "")}}
     except Exception as e:
         print("Error in generate_interpretation:", e)
         return {"task": "error", "arguments": {"error": str(e)}}
+
 
 async def generate_followup_email(recipient_email: str, subject: str, context: str, tone: str = "professional"):
     try:
