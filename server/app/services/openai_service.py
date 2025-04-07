@@ -235,7 +235,7 @@ async def generate_interpretation(command: str):
             model=MODEL,
             messages=messages,
             functions=FUNCTIONS,
-            function_call="auto"
+            function_call="auto",
             messages=[{"role": "user", "content": command}],
         )
         message = response["choices"][0]["message"]
