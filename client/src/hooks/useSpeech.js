@@ -3,6 +3,8 @@ import { useState, useEffect } from 'react';
 export default function useSpeech() {
   const [transcript, setTranscript] = useState('');
   const [listening, setListening] = useState(false);
+
+  
   
   useEffect(() => {
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
