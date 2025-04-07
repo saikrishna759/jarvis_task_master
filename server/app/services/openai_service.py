@@ -236,7 +236,6 @@ async def generate_interpretation(command: str):
             messages=messages,
             functions=FUNCTIONS,
             function_call="auto",
-            messages=[{"role": "user", "content": command}],
         )
         message = response["choices"][0]["message"]
         print("GPT Response:", message)
