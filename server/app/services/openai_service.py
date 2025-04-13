@@ -14,8 +14,8 @@ FUNCTIONS = [
             "type": "object",
             "properties": {},
             "required": [],
-            "additionalProperties": False,
-        },
+            "additionalProperties": False
+        }
     },
     {
     "name": "play_video",
@@ -42,38 +42,39 @@ FUNCTIONS = [
                 "song": {
                     "type": "string",
                     "description": "Name of the song to play (optional).",
-                    "default": "",
+                    "default": ""
                 }
             },
             "required": ["song"],
-            "additionalProperties": False,
-        },
+            "additionalProperties": False
+        }
     },
     {
-        "name": "get_today_schedule",
-        "description": "Get a list of events scheduled for today from the user's Google Calendar.",
-        "parameters": {
-            "type": "object",
-            "properties": {},
-            "required": [],
-            "additionalProperties": False,
-        },
+    "name": "get_today_schedule",
+    "description": "Get a list of events scheduled for today from the user's Google Calendar.",
+    "parameters": {
+        "type": "object",
+        "properties": {},
+        "required": [],
+        "additionalProperties": False
+    }
     },
     {
-        "name": "get_events_for_date",
-        "description": "Fetch all calendar events for a specific date.",
-        "parameters": {
-            "type": "object",
-            "properties": {
-                "date": {
-                    "type": "string",
-                    "description": "The date to get events for, in YYYY-MM-DD format.",
-                }
-            },
-            "required": ["date"],
-            "additionalProperties": False,
+    "name": "get_events_for_date",
+    "description": "Fetch all calendar events for a specific date.",
+    "parameters": {
+        "type": "object",
+        "properties": {
+            "date": {
+                "type": "string",
+                "description": "The date to get events for, in YYYY-MM-DD format."
+            }
         },
-    },
+        "required": ["date"],
+        "additionalProperties": False
+
+    }
+},
     {
         "name": "create_calendar_event",
         "description": "Create a calendar event with title, date (YYYY-MM-DD), and time (HH:MM).",
@@ -82,11 +83,11 @@ FUNCTIONS = [
             "properties": {
                 "title": {"type": "string", "description": "Event title."},
                 "date": {"type": "string", "description": "Date in YYYY-MM-DD format."},
-                "time": {"type": "string", "description": "Time in HH:MM format."},
+                "time": {"type": "string", "description": "Time in HH:MM format."}
             },
             "required": ["title", "date", "time"],
-            "additionalProperties": False,
-        },
+            "additionalProperties": False
+        }
     },
     {
         "name": "search_reservation",
@@ -97,11 +98,11 @@ FUNCTIONS = [
                 "restaurant": {"type": "string", "description": "Restaurant name."},
                 "date": {"type": "string", "description": "Date in YYYY-MM-DD format."},
                 "time": {"type": "string", "description": "Time in HH:MM format."},
-                "people": {"type": "integer", "description": "Number of people."},
+                "people": {"type": "integer", "description": "Number of people."}
             },
             "required": ["restaurant", "date", "time", "people"],
-            "additionalProperties": False,
-        },
+            "additionalProperties": False
+        }
     },
     # {
     #     "name": "websearch",
@@ -122,11 +123,11 @@ FUNCTIONS = [
             "type": "object",
             "properties": {
                 "number": {"type": "string", "description": "Recipient phone number."},
-                "message": {"type": "string", "description": "Message to send."},
+                "message": {"type": "string", "description": "Message to send."}
             },
             "required": ["number", "message"],
-            "additionalProperties": False,
-        },
+            "additionalProperties": False
+        }
     },
     {
         "name": "send_followup_email",
@@ -206,6 +207,8 @@ FUNCTIONS = [
     },
 ]
 
+from ..conversation_store import *
+
 async def generate_interpretation(command: str, context: dict = None):
     try:
         messages = []
@@ -259,6 +262,71 @@ async def generate_interpretation(command: str, context: dict = None):
         print("Error in generate_interpretation:", e)
         return {"task": "error", "arguments": {"error": str(e)}}
 
+# async def generate_interpretation(command: str, context: dict = None):
+#     try:
+#         messages = []
+
+#         # Construct system message with context instructions (if any)
+#         system_msg = (
+#             "You are an intelligent assistant with short-term memory. "
+#             "If the user says something ambiguous (e.g., 'play video of previous song'), "
+#             "use the context (e.g. last played song) to fill in missing details."
+#         )
+#         if context and context.get("conversation_history"):
+#             system_msg += " Conversation history: " + " | ".join(context["conversation_history"])
+#         messages.append({"role": "system", "content": system_msg})
+#         messages.append({"role": "user", "content": command})
+
+#         print(messages)
+
+#         response = await openai.ChatCompletion.acreate(
+#             model=MODEL,
+#             messages=messages,
+#             functions=FUNCTIONS,
+#             function_call="auto"
+#         )
+#         message = response["choices"][0]["message"]
+        
+#         # Print the GPT response to the console for debugging
+#         print("GPT Response:", message)
+        
+#         if "function_call" in message:
+#             func_call = message["function_call"]
+#             function_name = func_call.get("name")
+#             try:
+#                 arguments = json.loads(func_call.get("arguments", "{}"))
+#             except Exception as e:
+#                 arguments = {"error": f"Failed to parse arguments: {str(e)}", "raw": func_call.get("arguments")}
+#             return {"task": function_name, "arguments": arguments}
+#         else:
+#             return {"task": "none", "arguments": {"response": message.get("content", "")}}
+#     except Exception as e:
+#         print("Error in generate_interpretation:", e)
+#         return {"task": "error", "arguments": {"error": str(e)}}
+
+# async def generate_interpretation(command: str):
+#     try:
+#         response = await openai.ChatCompletion.acreate(
+#             model=MODEL,
+#             messages=[{"role": "user", "content": command}],
+#             functions=FUNCTIONS,  # Note: using "functions" with our flat definitions.
+#             function_call="auto"
+#         )
+#         message = response["choices"][0]["message"]
+#         if "function_call" in message:
+#             func_call = message["function_call"]
+#             function_name = func_call.get("name")
+#             try:
+#                 arguments = json.loads(func_call.get("arguments", "{}"))
+#             except Exception as e:
+#                 arguments = {"error": f"Failed to parse arguments: {str(e)}", "raw": func_call.get("arguments")}
+#             return {"task": function_name, "arguments": arguments}
+#         else:
+#             return {"task": "none", "arguments": {"response": message.get("content", "")}}
+#     except Exception as e:
+#         print("Error in generate_interpretation:", e)
+#         return {"task": "error", "arguments": {"error": str(e)}}
+    
 
 async def generate_followup_email(recipient_email: str, subject: str, context: str, tone: str = "professional"):
     try:
