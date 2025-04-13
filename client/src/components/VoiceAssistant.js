@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 import React, { useEffect, useState } from "react";
+=======
+>>>>>>> 945178157c8074e3b4c082d85476961f74db862b
 import React, { useState, useRef, useEffect } from "react";
 import useSpeech from "../hooks/useSpeech";
 import { interpretVoiceCommand } from "../utils/api";
