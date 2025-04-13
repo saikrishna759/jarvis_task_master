@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import useSpeech from "../hooks/useSpeech";
 import { interpretVoiceCommand } from "../utils/api";
 
