@@ -5,7 +5,7 @@ html, body {
   padding: 0;
   background: 
     linear-gradient(rgba(1, 10, 19, 0.6), rgba(1, 10, 19, 0.6)),
-    url("images/jarvis-bg.jpg") no-repeat center center fixed;
+    url("\images\\jarvis-bg.jpg") no-repeat center center fixed;
   background-size: cover;
   background-blend-mode: multiply;
   color: #00e5ff;
